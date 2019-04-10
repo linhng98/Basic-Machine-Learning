@@ -111,8 +111,6 @@ def append_deduction_list(clause, proof):
     for i in range(len(list_deduction)):
         if clause == list_deduction[i].proof:
             return
-    print('{0}    {1}            {2}'.format(
-        len(list_deduction), clause, proof))
     list_deduction.append(deduction(clause, proof))
 
 
