@@ -248,7 +248,6 @@ def check_all_pair():
 
                     global proved
                     proved = 1
-                    print('end')
                     return
 
 
