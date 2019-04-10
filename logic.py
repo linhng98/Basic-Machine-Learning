@@ -166,7 +166,7 @@ def input_conclude():
                 clause_B = conclude[idx+1:]
 
                 append_deduction_list(clause_A, 'PRCP')
-                append_deduction_list(clause_B, 'PRIP')
+                append_deduction_list('-{0}'.format(clause_B), 'PRIP')
             else:
                 append_deduction_list(negative_clause(conclude), 'PRIP')
 
@@ -238,6 +238,30 @@ def natural_deduction(clause_A, clause_B, idx_A, idx_B):
                 if check_clause_B_is_sub_clause_A_OR(left_clause_A, clause_B):
                     append_deduction_list(
                         left_clause_A, 'ADD {0}'.format(idx_B))
+    else:
+        temp_clause_A = clause_A
+        temp_clause_B = clause_B
+        temp_idx_A = idx_A
+        temp_idx_B = idx_B
+
+        if len(clause_A) < len(clause_B):
+            temp_clause_A, temp_clause_B = temp_clause_B, temp_clause_A
+            temp_idx_A, temp_idx_B = temp_idx_B, temp_idx_A
+
+        list_temp_clause_A_AND = temp_clause_A.split('.')
+        for i in range(len(list_temp_clause_A_AND)):
+            if check_is_negative(temp_clause_B, list_temp_clause_A_AND[i]):
+                append_deduction_list(
+                    list_temp_clause_A_AND[i], 'SIM {0}'.format(temp_idx_A))
+                return
+
+        list_temp_clause_A_OR = temp_clause_A.split('+')
+        for i in range(len(list_temp_clause_A_OR)):
+            if check_is_negative(temp_clause_B, list_temp_clause_A_OR[i]):
+                del list_temp_clause_A_OR[i]
+                append_deduction_list(
+                    '+'.join(list_temp_clause_A_OR), 'DS {0} {1}'.format(temp_idx_A, temp_idx_B))
+                return
 
 
 def check_all_pair():
@@ -255,6 +279,7 @@ def check_all_pair():
                         list_deduction[-1].clause, list_deduction[k].clause, len(list_deduction)-1, k)
                     append_deduction_list(
                         '0', 'EQ {0}'.format(len(list_deduction)-1))
+
                     global proved
                     proved = 1
                     print('end')
