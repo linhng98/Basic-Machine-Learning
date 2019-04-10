@@ -78,24 +78,6 @@ def check_valid_syntax(clause):
     return True
 
 
-def check_just_AND_operation(clause):
-    if '+' in clause or '>' in clause or '=' in clause:
-        return False
-    return True
-
-
-def check_just_OR_operation(clause):
-    if '.' in clause or '>' in clause or '=' in clause:
-        return False
-    return True
-
-
-def check_non_operation(clause):
-    if '.' in clause or '>' in clause or '=' in clause or '+' in clause:
-        return False
-    return True
-
-
 def remove_double_negative(clause):
     while('--' in clause):
         idx = re.search('--', clause).start()
@@ -179,20 +161,6 @@ def implement_CON_rule(clause_A, clause_B, idx_A, idx_B):
     clause_X = '{0}.{1}'.format(clause_A, clause_B)
     prove_X = 'CON {0} {1}'.format(idx_A, idx_B)
     append_deduction_list(clause_X, prove_X)
-
-
-def implement_DS_rule(clause_A, clause_B, idx_A, idx_B):
-    if len(clause_A) < len(clause_B):
-        clause_A, clause_B = clause_B, clause_A
-    list_element_A = clause_A.split('+')
-
-    for i in range(len(list_element_A)):
-        if check_is_negative(clause_B, list_element_A[i]):
-            list_element_A.pop(i)
-            clause_X = '+'.join(list_element_A)
-            prove_X = 'DS {0} {1}'.format(idx_A, idx_B)
-            append_deduction_list(clause_X, prove_X)
-            break
 
 
 def check_HS_rule(clause_A, clause_B, idx_A, idx_B):
