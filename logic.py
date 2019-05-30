@@ -1,7 +1,6 @@
 import re
 import math
 
-
 class deduction:
     def __init__(self, clause, proof):
         self.clause = clause
