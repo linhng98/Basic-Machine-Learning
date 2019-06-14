@@ -261,7 +261,7 @@ def main():
         check_all_pair()
 
     for i in range(len(list_deduction)):
-        print('{0}    {1}            {2}'.format(
+        print('{: <4} {: <10} {: <10}'.format(
             i, list_deduction[i].clause, list_deduction[i].proof))
 
 
