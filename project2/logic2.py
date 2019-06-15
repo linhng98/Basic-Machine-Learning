@@ -1,18 +1,15 @@
-# +---------+---------+---------+-------+
-# |Priority |Operator |IO Symbol|Read as|
-# +---------+---------+---------+-------+
-# |    1    |    ¬    |    -    |  not  |
-# |    2    |    ∧    |    .    |  and  |
-# |    3    |    ∨    |    +    |  or   |
-# |    4    |    →    |    >    |  if   |
-# |    5    |    ↔    |    =    |  only |
-# +---------+---------+---------+-------+
+# +---------+---------+---------+-------------+
+# |Priority |Operator |IO Symbol| Name        |
+# +---------+---------+---------+-------------+
+# |    1    |    ¬    |    -    | negation    |
+# |    2    |    ∧    |    .    | conjunction |
+# |    3    |    ∨    |    +    | disjunction |
+# |    4    |    →    |    >    | implication |
+# |    5    |    ↔    |    =    | equivalence |
+# +---------+---------+---------+-------------+
 
 import re
 import math
-
-# (pv-q)^(pvr)
-input = [{("p", True), ("q", False)}, {("p", True), ("r", True)}]
 
 def is_valid_input(input_string):
     if re.match("^[a-zA-Z\s\-.+>=()]*$", input_string):
@@ -26,51 +23,20 @@ def strip_spaces(input_string):
 
 def print_underline(string):
         print('\033[4m' + string + '\033[0m')
-#def notation_to_list(propositional_notation):
-#    for i in notation
-#    return propositional_list
 
-def __select_literal(cnf):
-    for c in cnf:
-        for literal in c:
-            return literal[0]
- 
-def dpll(cnf, assignments={}):
- 
-    if len(cnf) == 0:
-        return True, assignments
- 
-    if any([len(c)==0 for c in cnf]):
-        return False, None
-    
-    l = __select_literal(cnf)
- 
-    new_cnf = [c for c in cnf if (l, True) not in c]
-    new_cnf = [c.difference({(l, False)}) for c in new_cnf]
-    sat, vals = dpll(new_cnf, {**assignments, **{l: True}})
-    if sat:
-        return sat, vals
-         
-    new_cnf = [c for c in cnf if (l, False) not in c]
-    new_cnf = [c.difference({(l, True)}) for c in new_cnf]
-    sat, vals = dpll(new_cnf, {**assignments, **{l: False}})
-    if sat:
-        return sat, vals
- 
-    return False, None
+def enum(**enums):
+    return type('Enum', (), enums)
+    conn = enum(ONLY = "only", IF="if", AND="and", OR='or' , NOT = "not")
 
-def random_kcnf(n_literals, n_conjuncts, k=3):
-    result = []
-    for _ in range(n_conjuncts):
-        conj = set()
-        for _ in range(k):
-            index = random.randint(0, n_literals)
-            conj.add((
-                str(index).rjust(10, '0'),
-                bool(random.randint(0,2)),
-            ))
-        result.append(conj)
-    return result
+def eliminate_implications():
+    # Input:  (A ∨ B) → (¬B ∧ A)
+    # Output: (¬A ∨ ¬B) ∧ ¬B ∧ (¬B ∨ A)
+
+def to_cnf(string):
+    if is_instance(s, str): s = expr(s)
+    string = eliminate_implications(s) # Steps 1, 2 from p. 215
+    string = move_not_inwards(s) # Step 3
+    return distribute_and_over_or(s) # Step 4
 
 input_string="(A +B) > C.D"
 if is_valid_input(input_string):
