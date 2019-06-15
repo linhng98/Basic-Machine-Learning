@@ -14,15 +14,18 @@ import math
 # (pv-q)^(pvr)
 input = [{("p", True), ("q", False)}, {("p", True), ("r", True)}]
 
-def is_valid_input(string):
-    if re.match("^[a-zA-Z\s\-.+>=()]*$", string):
+def is_valid_input(input_string):
+    if re.match("^[a-zA-Z\s\-.+>=()]*$", input_string):
         return True
     else:
+        print("Invalid syntax")
         return False
 
-def strip_spaces(string):
-    return re.sub(r'\s+', '', string)
+def strip_spaces(input_string):
+    return re.sub(r'\s+', '', input_string)
 
+def print_underline(string):
+        print('\033[4m' + string + '\033[0m')
 #def notation_to_list(propositional_notation):
 #    for i in notation
 #    return propositional_list
@@ -69,6 +72,6 @@ def random_kcnf(n_literals, n_conjuncts, k=3):
         result.append(conj)
     return result
 
-input_string="hello tao ten khue"
+input_string="(A +B) > C.D"
 if is_valid_input(input_string):
-    print(strip_spaces(input_string))
+    print_underline(strip_spaces(input_string))
