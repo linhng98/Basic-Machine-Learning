@@ -69,7 +69,7 @@ class logic_base:
         if flag:
             self.merge_items(logic)
 
-class ordering(logic_base):
+class order(logic_base):
     def run(self):
         flag = False
         for i in range(len(self.my_stack)):
@@ -214,7 +214,6 @@ class simplification(logic_base):
         old = self.get_result()
         for i in range(len(self.my_stack)):
             self.my_stack[i] = self.reducing_or(self.my_stack[i])
-            #self.my_stack[i] = self.reducing_and(self.my_stack[i])
         final = self.my_stack[-1]
         self.my_stack[-1] = self.reducing_and(final)
         return len(old) != len(self.get_result())
@@ -249,45 +248,36 @@ def merging(source):
     source.merge_items('.')
     return old != source.get_result()
 
-def run(input):
-    all_strings = []
-    #all_strings.append(input)
-    zero = ordering(input)
+def to_cnf(input_premise):
+    zero = order(input)
     while zero.run():
-        zero = ordering(zero.get_result())
+        zero = order(zero.get_result())
     merging(zero)
-
     one = replace_iff(zero.get_result())
     one.run()
-    all_strings.append(one.get_result())
+    cnf = one.get_result()
     merging(one)
-        
     two = replace_imp(one.get_result())
     two.run()
-    all_strings.append(two.get_result())
+    cnf = two.get_result()
     merging(two)
-        
     three, four = None, None
     old = two.get_result()
     three = de_morgan(old)
     while three.run():
         pass
-    all_strings.append(three.get_result())
+    cnf = three.get_result()
     merging(three)
     three_helf = simplification(three.get_result())
     three_helf.run()
-
     four = distributive(three_helf.get_result())
     while four.run():
         pass
     merging(four)
     five = simplification(four.get_result())
     five.run()
-    all_strings.append(five.get_result())
-    return all_strings
-
-def to_cnf(input_premise):
-    return run(input)[-1]
+    cnf = five.get_result()
+    return cnf
 
 def negate(input_premise):
     return 'B'
@@ -300,22 +290,18 @@ def split_and(premise_list):
         result = ([i for premise in result for i in replace.get(premise, [premise])])
     return result
 
+def resolution(knowledge_base):
+    return True
+    while True:
+        # If there is conflict in knowledge base, return True
+        # Select one variable for resolution
+        # apply_resolution(variable, knowledge_base)
+        # If not solvable anymore, break the loop
+        if True:
+            break
 
 def print_underline(string):
     print('\033[4m' + string + '\033[0m')
-
-#    # Loop
-#    while True:
-#        # If there is conflict in knowledge base, return True
-#        for premise in knowledge_base:
-#            if is_conflict(premise):
-#                print("True")
-#        # Select one variable for resolution
-#        apply_resolution(variable, knowledge_base)
-#        if not is_solvable(knowledge_base):
-#            break
-#    print("False")
-#
 
 if __name__ == "__main__":
     # Convert all sentence to CNF
@@ -328,14 +314,15 @@ if __name__ == "__main__":
     print("Knowledge base formated as CNF")
     print(knowledge_base_cnf)
     # Negate conclude
-    knowledge_base_cnf[-1] = negate(knowledge_base_cnf[-1])
-    print("Negated conclude")
-    print(knowledge_base_cnf)
+    # knowledge_base_cnf[-1] = negate(knowledge_base_cnf[-1])
+    # print("Negated conclude")
+    # print(knowledge_base_cnf)
     # Split and
     knowledge_base_cnf = split_and(knowledge_base_cnf)
     print("Splitted and")
     print(knowledge_base_cnf)
-    # Loop
-        # If there is conflict in knowledge base, return True
-        # Select one variable for resolution
-        # If not solvable anymore, break the loop
+    # Resolution
+    if resolution(knowledge_base_cnf):
+        print("Yes")
+    else:
+        print("No")
