@@ -281,6 +281,14 @@ def to_cnf(input_premise):
 
 def negate(input_premise):
     return 'B'
+    # for i in inputpremise:
+    #     if i == '-':
+    #         # pop -
+    #         i += 2
+    #     elif i in [A-Z]:
+    #         if i - 1 == ' ':
+    #             insert('-')
+    # return input_premise
 
 def split_and(premise_list):
     result = premise_list

@@ -1,11 +1,9 @@
 # Đồ  Án Logic Mệnh Đề
 
-Họ tên          | Mã số sinh viên | Đóng góp                                                            | Hoàn Thành
---              |              -- | --                                                                  | --
-Đoàn Khuê       |         1612311 | đồ án 1 output, đồ án 2 logic và input output, viết báo cáo đồ án 2 | 70%
-Nguyễn Văn Linh |         1612340 | đồ án 1 logic, đồ án 2 input output, viết báo cáo đồ án 1           | 100%
-
-Xem thêm đóng góp tại lịch sử commit: [https://github.com/nobabykill/Basic-Machine-Learning/commits/master](https://github.com/nobabykill/Basic-Machine-Learning/commits/master)
+Họ tên          | Mã số sinh viên | Đóng góp                                       | Hoàn Thành
+--              |              -- | --                                             | --
+Đoàn Khuê       |         1612311 | đồ án 1 (output), đồ án 2 (logic input output) | 80%
+Nguyễn Văn Linh |         1612340 | đồ án 1 (logic), đồ án 2 (input)               | 100%
 
 ---
 ## Mục lục
@@ -155,7 +153,9 @@ def main():
 ### Kết quả đạt được
 
 ![](resources/logic_and_predicate/demo_result_1.png)
+
 ![](resources/logic_and_predicate/demo_result_2.png)
+
 ![](resources/logic_and_predicate/demo_result_3.png)
 
 ## Đồ án 2
@@ -173,9 +173,111 @@ def main():
     * Lặp cho đến khi không còn biến mệnh đề nào có thể hợp giải được
 * Trả về `False`
 
-### Ý nghĩa các hàm chính
+### Ý nghĩa các hàm
+
+```python
+to_cnf(list)
+    return list
+```
+
+* Chuyển một list các câu về dạng CNF theo các bước sau (mỗi bước nằm trong một class:
+    * Thêm dấu ngoặc theo đúng độ ưu tiên
+    * Khai triển `=` thành `>` và `.`
+    * Khai triển `>` thành `.` và `-`
+    * Thực hiện De Morgan xử lí `-`
+    * Phân phối
+
+```python
+negate(string)
+    return string
+```
+
+* Phủ định một câu, dùng để phủ định kết luận
+
+```python
+split_and(list)
+    return list
+```
+
+* Các câu có `^` thì tách làm hai câu
+
+```python
+resolution(list)
+    return boolean
+```
+
+* Thực hiện hợp giải
+
+```python
+print_underline(list, string)
+```
+
+* Xuất ra KB với các câu chứa biến mệnh đề được gạch dưới
+
+```python
+negate(string)
+    return string
+```
+
+* Lấy phủ định của câu
 
 
+```python
+add_brackets(string)
+    return string
+```
+
+* Thêm ngoặc để sắp xếp theo thứ tự ưu tiên
+
+```python
+get_result(object)
+    return string
+```
+
+* Trả về kết quả của bước thực hiện
+
+```python
+merge_items(object)
+    return string
+```
+
+* Gộp các kết quả thành string hoàn chỉnh
+
+```python
+replace_iff(string)
+    return string
+```
+
+* Khai triển `=`
+* Tương tự cho imp (`>`)
+
+```python
+doing_demorgan(string)
+    return string
+```
+
+* Đưa `-` vào trong
+
+```python
+distribute(object)
+    return boolean
+```
+
+* Phân phối giữa `.` và `+`
+
+```python
+reducing_and(string)
+    return string
+```
+
+* Đơn giản hóa `.`
+* Tương tự cho `+`
+
+```python
+merging(object)
+```
+
+* Gộp kết quả
 
 ### Cách sử dụng
 
@@ -184,26 +286,35 @@ Tạo một file `input.txt` với nội dung là các mệnh đề và dòng cu
 Ví dụ:
 
 ```
-E . F > D
-A + -B + -D
--A
+A > B + D
+E . A > -B
 F . E
--B
 ```
 
 Giữa các kí tự ngoại trừ dấu '-' phải có dấu cách
 
-Sau đó chạy chương trình bằng lệnh `python project2.py`
+Sau đó chạy chương trình bằng lệnh `python project2.py` ta có kết quả:
+
+```
+Input clauses
+['A > B + D', 'E . A > -B', 'F . E']
+Knowledge base formated as CNF
+['- A + B + D', '- E + -B + - A', 'E . F']
+Splitted and
+['- A + B + D', '- E + -B + - A', 'E', 'F']
+```
+
+Vì chức năng vẫn chưa hoàn thành hết nên kết quả không in ra được hết các câu.
 
 ### Kết quả đạt được
 
-Chức năng                       | Hoàn thành
-:--                             |        --:
-Đọc được input từ file          |       100%
-Biến đổi các câu thành dạng CNF |       100%
-Lấy phủ định kết luận           |       100%
-Kiểm tra mệnh đề mâu thuẫn      |        10%
-Hợp giải                        |         0%
+Chức năng                        | Hoàn thành
+:--                              |        --:
+Đọc được input từ file           |       100%
+Biến đổi các câu thành dạng CNF  |       100%
+Tách `.` thành các câu khác nhau |       100%
+Lấy phủ định kết luận            |        50%
+Hợp giải                         |        30%
 
 ### Tham Khảo
 
