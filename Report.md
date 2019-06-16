@@ -161,7 +161,22 @@ def main():
 ## Đồ án 2
 
 ### Giải Thuật
+
+* Biến đổi tất cả các câu thành dạng CNF
+* Lấy phủ định kết luận, đưa vào KB
+* Lặp
+    * Nếu trong KB có chứa hai mệnh đề mâu thuẫn (ví dụ: `P` và `¬P`) thì trả về `True`
+    * Sử dụng một biến mệnh đề để hợp giải:
+        * Lấy tất cảcác câu chứa biến mệnh đề được chọn
+        * Áp dụng luật hợp giải lên mọi cặp câu chứa khẳng định và phủ định của biến mệnh đề
+    * Viết các câu kết quả mới và xoá các câu đã sử dụng
+    * Lặp cho đến khi không còn biến mệnh đề nào có thể hợp giải được
+* Trả về `False`
+
 ### Ý nghĩa các hàm chính
+
+
+
 ### Cách sử dụng
 
 Tạo một file `input.txt` với nội dung là các mệnh đề và dòng cuối cùng là kết luận
@@ -176,17 +191,19 @@ F . E
 -B
 ```
 
+Giữa các kí tự ngoại trừ dấu '-' phải có dấu cách
+
 Sau đó chạy chương trình bằng lệnh `python project2.py`
 
 ### Kết quả đạt được
 
-Chức năng | Hoàn thành
-:--       |        --:
-Đọc được input từ file          | 100%
-Biến đổi các câu thành dạng CNF | 100%
-Lấy phủ định kết luận           | 100%
-Kiểm tra mệnh đề mâu thuẫn      |  10%
-Hợp giải                        |   0%
+Chức năng                       | Hoàn thành
+:--                             |        --:
+Đọc được input từ file          |       100%
+Biến đổi các câu thành dạng CNF |       100%
+Lấy phủ định kết luận           |       100%
+Kiểm tra mệnh đề mâu thuẫn      |        10%
+Hợp giải                        |         0%
 
 ### Tham Khảo
 
