@@ -68,6 +68,7 @@ class logic_base:
                 flag = True
         if flag:
             self.merge_items(logic)
+
 class ordering(logic_base):
     def run(self):
         flag = False
@@ -97,6 +98,7 @@ class ordering(logic_base):
         m = re.search(reg_iff, source)
         if m is not None:
             return re.sub(reg_iff, "("+m.group(0)+")", source, count=1)
+
 class replace_iff(logic_base):
     def run(self):
         final = len(self.my_stack) - 1
@@ -121,6 +123,7 @@ class replace_iff(logic_base):
             return None
         a, b = m.group(1), m.group(2)
         return (str(id) + ' . ' + str(id+1), a + ' > ' + b, b + ' > ' + a)
+
 class replace_imp(logic_base):
     def run(self):
         flag = False
@@ -140,6 +143,7 @@ class replace_imp(logic_base):
         if '- ' in a:
             return a.replace('- ','') + ' + ' + b
         return '- ' + a + ' + ' + b
+
 class de_morgan(logic_base):
     def run(self):
         reg = '-\s+(\d+)'
@@ -176,6 +180,7 @@ class de_morgan(logic_base):
                     new_items[i] = ''
                     new_items[i+1] = ''
         return ' '.join([i for i in new_items if len(i)>0])
+
 class distributive(logic_base):
     def run(self):
         flag = False
@@ -203,6 +208,7 @@ class distributive(logic_base):
                 break
         self.my_stack.append(self.my_stack[final])
         return flag
+
 class simplification(logic_base):
     def run(self):
         old = self.get_result()
@@ -242,6 +248,7 @@ def merging(source):
     source.merge_items('+')
     source.merge_items('.')
     return old != source.get_result()
+
 def run(input):
     all_strings = []
     #all_strings.append(input)
@@ -282,35 +289,53 @@ def run(input):
 def to_cnf(input_premise):
     return run(input)[-1]
 
+def negate(input_premise):
+    return 'B'
+
+def split_and(premise_list):
+    result = premise_list
+    for premise in result:
+        data = premise.split(" . ")
+        replace = {premise : data}
+        result = ([i for premise in result for i in replace.get(premise, [premise])])
+    return result
+
+
 def print_underline(string):
     print('\033[4m' + string + '\033[0m')
 
-#input_string="(A +B) > C.D"
-#if is_valid_input(input_string):
-#    print_underline(strip_spaces(input_string))
-
-def main():
-    # Convert all sentence to CNF
-    knowledge_base = input_list
-    for premise in knowledge_base:
-        to_cnf(premise)
-    # Negate conclude
-    negate(knowledge_base[-1])
-    # Loop
-    while True:
-        # If there is conflict in knowledge base, return True
-        for premise in knowledge_base:
-            if is_conflict(premise):
-                print("True")
-        # Select one variable for resolution
-        apply_resolution(variable, knowledge_base)
-        # If not solvable anymore, break the loop
-        if not is_solvable(knowledge_base):
-            break
-    print("False")
-
-input = '(A = C) + B'
-print(to_cnf(input))
+#    # Loop
+#    while True:
+#        # If there is conflict in knowledge base, return True
+#        for premise in knowledge_base:
+#            if is_conflict(premise):
+#                print("True")
+#        # Select one variable for resolution
+#        apply_resolution(variable, knowledge_base)
+#        if not is_solvable(knowledge_base):
+#            break
+#    print("False")
+#
 
 if __name__ == "__main__":
-    # main()
+    # Convert all sentence to CNF
+    input_list = [line.rstrip('\n') for line in open('input.txt')]
+    print("Input clauses")
+    print(input_list)
+    knowledge_base_cnf = []
+    for input in input_list:
+        knowledge_base_cnf.append(to_cnf(input))
+    print("Knowledge base formated as CNF")
+    print(knowledge_base_cnf)
+    # Negate conclude
+    knowledge_base_cnf[-1] = negate(knowledge_base_cnf[-1])
+    print("Negated conclude")
+    print(knowledge_base_cnf)
+    # Split and
+    knowledge_base_cnf = split_and(knowledge_base_cnf)
+    print("Splitted and")
+    print(knowledge_base_cnf)
+    # Loop
+        # If there is conflict in knowledge base, return True
+        # Select one variable for resolution
+        # If not solvable anymore, break the loop
