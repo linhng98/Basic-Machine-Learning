@@ -1,25 +1,30 @@
 # Đồ  Án Logic Mệnh Đề
 
-Họ tên          | Mã số sinh viên | Đóng góp | Hoàn Thành
---              |              -- | --       |--
-Đoàn Khuê       |         1612311 | đồ án 2  |100%
-Nguyễn Văn Linh |         1612340 | đồ án 1  |100%
+Họ tên          | Mã số sinh viên | Đóng góp                                                            | Hoàn Thành
+--              |              -- | --                                                                  | --
+Đoàn Khuê       |         1612311 | đồ án 1 output, đồ án 2 logic và input output, viết báo cáo đồ án 2 | 70%
+Nguyễn Văn Linh |         1612340 | đồ án 1 logic, đồ án 2 input output, viết báo cáo đồ án 1           | 100%
 
 ---
 ## Mục lục
 
-- [Đồ Án Logic Mệnh Đề](#%C4%91%E1%BB%93-%C3%A1n-logic-m%E1%BB%87nh-%C4%91%E1%BB%81)
-  - [Mục lục](#m%E1%BB%A5c-l%E1%BB%A5c)
-  - [Logic Và Tính Toán Vị Từ](#logic-v%C3%A0-t%C3%ADnh-to%C3%A1n-v%E1%BB%8B-t%E1%BB%AB)
-    - [Giải Thuật](#gi%E1%BA%A3i-thu%E1%BA%ADt)
-    - [Ý nghĩa các hàm](#%C3%BD-ngh%C4%A9a-c%C3%A1c-h%C3%A0m)
-    - [Cách sử dụng](#c%C3%A1ch-s%E1%BB%AD-d%E1%BB%A5ng)
-    - [Kết quả đạt được](#k%E1%BA%BFt-qu%E1%BA%A3-%C4%91%E1%BA%A1t-%C4%91%C6%B0%E1%BB%A3c)
-    - [Tham Khảo](#tham-kh%E1%BA%A3o)
-  - [Hợp Giải Robinson - Davis Putman](#h%E1%BB%A3p-gi%E1%BA%A3i-robinson---davis-putman)
+- [Đồ Án Logic Mệnh Đề]()
+  - [Mục lục]()
+  - [Đồ án 1]()
+    - [Giải Thuật]()
+    - [Ý nghĩa các hàm]()
+    - [Cách sử dụng]()
+    - [Kết quả đạt được]()
+  - [Đồ án 2]()
+    - [Giải Thuật]()
+    - [Ý nghĩa các hàm]()
+    - [Cách sử dụng]()
+    - [Kết quả đạt được]()
+  - [Tham Khảo]()
 
 ---
-## Logic Và Tính Toán Vị Từ
+
+## Đồ án 1
 
 ### Giải Thuật
 
@@ -151,10 +156,40 @@ def main():
 ![](resources/logic_and_predicate/demo_result_2.png)
 ![](resources/logic_and_predicate/demo_result_3.png)
 
+## Đồ án 2
+
+### Giải Thuật
+### Ý nghĩa các hàm chính
+### Cách sử dụng
+
+Tạo một file `input.txt` với nội dung là các mệnh đề và dòng cuối cùng là kết luận
+
+Ví dụ:
+
+```
+E . F > D
+A + -B + -D
+-A
+F . E
+-B
+```
+
+Sau đó chạy chương trình bằng lệnh `python project2.py`
+
+### Kết quả đạt được
+
+Chức năng | Hoàn thành
+:--       |        --:
+Đọc được input từ file          | 100%
+Biến đổi các câu thành dạng CNF | 100%
+Lấy phủ định kết luận           | 100%
+Kiểm tra mệnh đề mâu thuẫn      |  10%
+Hợp giải                        |   0%
+
 ### Tham Khảo
 
 * [https://en.wikipedia.org/wiki/Natural_deduction](https://en.wikipedia.org/wiki/Natural_deduction)
 * [https://www.iep.utm.edu/nat-ded/](https://www.iep.utm.edu/nat-ded/)
 * [https://proofs.openlogicproject.org/](https://proofs.openlogicproject.org/)
-
-## Hợp Giải Robinson - Davis Putman
+* [https://github.com/ldkrsi/cnf_py](https://github.com/ldkrsi/cnf_py)
+* [https://github.com/khamkarajinkya/Davis-Putnam-Logemann-Loveland-Algorithm](https://github.com/khamkarajinkya/Davis-Putnam-Logemann-Loveland-Algorithm)
