@@ -5,6 +5,8 @@ Họ tên          | Mã số sinh viên | Đóng góp                          
 Đoàn Khuê       |         1612311 | đồ án 1 output, đồ án 2 logic và input output, viết báo cáo đồ án 2 | 70%
 Nguyễn Văn Linh |         1612340 | đồ án 1 logic, đồ án 2 input output, viết báo cáo đồ án 1           | 100%
 
+Xem thêm đóng góp tại lịch sử commit: [https://github.com/nobabykill/Basic-Machine-Learning/commits/master](https://github.com/nobabykill/Basic-Machine-Learning/commits/master)
+
 ---
 ## Mục lục
 
